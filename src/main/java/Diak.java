@@ -1,7 +1,18 @@
+import exceptions.InvalidDate;
+import exceptions.TooYoung;
+
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Diak {
-
+    protected static Map<String, Integer> kepzesek;
+    static{
+        kepzesek=new HashMap();
+        kepzesek.put("Progterv", 6);
+        kepzesek.put("Gazdinfo", 6);
+        kepzesek.put("Borasz", 7);
+    }
     private String nev;
     private int kor;
     private Nem nem;
@@ -49,8 +60,16 @@ public class Diak {
         return beiratkozas_eve;
     }
 
-    public void setBeiratkozas_eve(LocalDate beiratkozas_eve) {
-        this.beiratkozas_eve = beiratkozas_eve;
+    public void setBeiratkozas_eve(LocalDate beiratkozas_eve)
+            throws InvalidDate, TooYoung {
+        if(beiratkozas_eve.isAfter(LocalDate.now())){
+            throw new InvalidDate();
+        }
+        if((LocalDate.now().minusYears(kor)).isBefore(LocalDate.now().minusYears(17))){
+            throw new TooYoung();
+        }
+        this.beiratkozas_eve=beiratkozas_eve;
+
     }
 
     public int getKreditek_szama() {
@@ -70,5 +89,22 @@ public class Diak {
                 ", beiratkozas_eve=" + beiratkozas_eve +
                 ", kreditek_szama=" + kreditek_szama +
                 '}';
+    }
+
+
+    public boolean csuszottE(int kepzes_feleveinek_szama){
+        int elhasznalt_felevek =
+                Math.abs(LocalDate.now().compareTo(beiratkozas_eve) *2);
+        if(elhasznalt_felevek>kepzes_feleveinek_szama){
+            return true;
+        }
+        return false;
+    }
+
+    public int teljesitettsegAranya(String kepzesneve){
+        int kepzes_feleveinek_szama =(int) kepzesek.get(kepzesneve);
+        int osszes = kepzes_feleveinek_szama*30;
+        double arany = kreditek_szama/osszes;
+        return (int) arany*100;
     }
 }
