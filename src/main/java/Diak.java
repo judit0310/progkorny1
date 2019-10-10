@@ -13,6 +13,7 @@ public class Diak {
         kepzesek.put("Gazdinfo", 6);
         kepzesek.put("Borasz", 7);
     }
+    private String neptun_kod;
     private String nev;
     private int kor;
     private Nem nem;
@@ -24,12 +25,21 @@ public class Diak {
     }
 
 
-    public Diak(String nev, int kor, Nem nem, LocalDate beiratkozas_eve, int kreditek_szama) {
+    public Diak(String neptun_kod,String nev, int kor, Nem nem, LocalDate beiratkozas_eve, int kreditek_szama) {
+        this.neptun_kod=neptun_kod;
         this.nev = nev;
         this.kor = kor;
         this.nem = nem;
         this.beiratkozas_eve = beiratkozas_eve;
         this.kreditek_szama = kreditek_szama;
+    }
+
+    public String getNeptun_kod() {
+        return neptun_kod;
+    }
+
+    public void setNeptun_kod(String neptun_kod) {
+        this.neptun_kod = neptun_kod;
     }
 
     public void setNev(String nev){

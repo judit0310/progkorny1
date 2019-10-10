@@ -18,7 +18,7 @@ public class DiakTest {
 
     @Test
     public void testFullConstructor() throws Exception {
-        Diak ujDiak = new Diak("Kiss János",
+        Diak ujDiak = new Diak("ABCDER","Kiss János",
                 24, Nem.FERFI,
                 LocalDate.now(),
                 0);
