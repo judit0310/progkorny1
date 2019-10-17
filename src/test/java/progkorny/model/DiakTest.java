@@ -1,13 +1,12 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import progkorny.model.Diak;
+import progkorny.model.Nem;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
-
-import static org.junit.Assert.*;
 
 public class DiakTest {
     @Test
