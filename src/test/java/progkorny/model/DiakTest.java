@@ -1,4 +1,7 @@
+package progkorny.model;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.Test;
 import progkorny.model.Diak;
 import progkorny.model.Nem;
@@ -9,6 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class DiakTest {
+    @Ignore
     @Test
     public void testEmptyConstructor(){
         Diak ujDiak = new Diak();
@@ -50,7 +54,7 @@ public class DiakTest {
 //        System.out.println(datum.until(most));
 //
 //    }
-
+    @Ignore
     @Test
     public void testMap(){
         System.out.println(Diak.kepzesek.values());
@@ -61,7 +65,7 @@ public class DiakTest {
 
         }
     }
-
+    @Ignore
     @Test
     public void tombTest(){
         String[] tomb= new String[5];
@@ -74,7 +78,7 @@ public class DiakTest {
         }
 
     }
-
+    @Ignore
     @Test
     public void listTest(){
         List<String> lista;
@@ -97,7 +101,7 @@ public class DiakTest {
         lista.set(8, "KACSA");
         System.out.println(lista);
     }
-
+    @Ignore
     @Test
     public void halmazTest(){
         Set<String> halmaz = new HashSet<>(10);
@@ -110,7 +114,7 @@ public class DiakTest {
         System.out.println(halmaz);
 
     }
-
+    @Ignore
     @Test
     public void jsonTest(){
         File file;

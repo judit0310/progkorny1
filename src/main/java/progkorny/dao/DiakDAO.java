@@ -1,7 +1,10 @@
+package progkorny.dao;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.log4j.Logger;
+import progkorny.model.Diak;
 
 
 import java.io.File;
@@ -39,6 +42,7 @@ public class DiakDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.info(result.size()+" diak van az adatbazisban");
         return result;
     }
 
@@ -63,6 +67,8 @@ public class DiakDAO {
             result = mapper.readValue(jsonFile, listReference);
             result.add(diak);
             mapper.writeValue(jsonFile, result);
+            logger.info(diak+" hozzaadva, igy a diakok szama:"+result.size());
+
         } catch (IOException e) {
             e.printStackTrace();
         }

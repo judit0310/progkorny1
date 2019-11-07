@@ -1,11 +1,15 @@
+package progkorny.model;
+
 import exceptions.InvalidDate;
 import exceptions.TooYoung;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Diak {
+    private Logger logger= Logger.getLogger(Diak.class);
     protected static Map<String, Integer> kepzesek;
     static{
         kepzesek=new HashMap();
@@ -25,13 +29,14 @@ public class Diak {
     }
 
 
-    public Diak(String neptun_kod,String nev, int kor, Nem nem, LocalDate beiratkozas_eve, int kreditek_szama) {
+    public Diak(String neptun_kod, String nev, int kor, Nem nem, LocalDate beiratkozas_eve, int kreditek_szama) {
         this.neptun_kod=neptun_kod;
         this.nev = nev;
         this.kor = kor;
         this.nem = nem;
         this.beiratkozas_eve = beiratkozas_eve;
         this.kreditek_szama = kreditek_szama;
+        logger.info("Uj Diak objektum:" +this);
     }
 
     public String getNeptun_kod() {
@@ -92,7 +97,7 @@ public class Diak {
 
     @Override
     public String toString() {
-        return "Diak{" +
+        return "progkorny.model.Diak{" +
                 "nev='" + nev + '\'' +
                 ", kor=" + kor +
                 ", nem=" + nem +
