@@ -80,12 +80,15 @@ public class Diak {
         if(beiratkozas_eve.isAfter(LocalDate.now())){
             throw new InvalidDate();
         }
-        if((LocalDate.now().minusYears(kor)).isBefore(LocalDate.now().minusYears(17))){
+        System.out.println((LocalDate.now().minusYears(kor)));
+        System.out.println(LocalDate.now().minusYears(17));
+        if(!(LocalDate.now().minusYears(kor)).isBefore(LocalDate.now().minusYears(17))){
             throw new TooYoung();
         }
         this.beiratkozas_eve=beiratkozas_eve;
 
     }
+
 
     public int getKreditek_szama() {
         return kreditek_szama;
