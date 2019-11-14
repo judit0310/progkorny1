@@ -3,15 +3,17 @@ package progkorny.dao;
 import exceptions.EzADiakMarSzerepel;
 import exceptions.InvalidDate;
 import exceptions.TooYoung;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import progkorny.dao.DiakDAO;
 import progkorny.model.Diak;
 import progkorny.model.Nem;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.InvalidKeyException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class DiakDAOTest {
     IDiakDAO dao;
@@ -58,6 +60,42 @@ public class DiakDAOTest {
         diak.setKreditek_szama(10);
         diak.setNem(Nem.EGYEB);
         dao.addDiak(diak);
+    }
+    @Test(expected = TooYoung.class)
+    public void testTulFiatal() throws TooYoung, InvalidDate {
+        Diak diak = new Diak();
+        diak.setNeptun_kod("AAA132");
+        diak.setNev("Kiss Károly");
+        diak.setKor(12);
+        diak.setBeiratkozas_eve(LocalDate.of(2019,9,4));
+    }
 
+    @Test(expected = InvalidDate.class)
+    public void testFuture() throws TooYoung, InvalidDate {
+        Diak diak = new Diak();
+        diak.setKor(12);
+        diak.setBeiratkozas_eve(LocalDate.of(2029,9,4));
+    }
+
+    @Test
+    public void fileCorrupted() throws TooYoung, InvalidDate, EzADiakMarSzerepel, IOException {
+        File fileobj = new File(file);
+        if(fileobj.exists()){
+        fileobj.setReadable(false);}
+        Assert.assertEquals(0, dao.readAllDiak().size());
+        FileWriter writer = new FileWriter(fileobj);
+        writer.write("CICA]");
+        writer.close();
+        fileobj.setReadable(true);
+        Assert.assertEquals(0, dao.readAllDiak().size());
+
+    }
+
+    @After
+    public void tearDown(){
+        File jsonfile = new File(file);
+        if (jsonfile.exists()){
+            jsonfile.delete();
+        }
     }
 }
