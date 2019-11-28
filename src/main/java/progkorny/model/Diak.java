@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Diak {
     private Logger logger= Logger.getLogger(Diak.class);
@@ -100,15 +101,15 @@ public class Diak {
 
     @Override
     public String toString() {
-        return "progkorny.model.Diak{" +
-                "nev='" + nev + '\'' +
+        return "Diak{" +
+                "neptun_kod='" + neptun_kod + '\'' +
+                ", nev='" + nev + '\'' +
                 ", kor=" + kor +
                 ", nem=" + nem +
                 ", beiratkozas_eve=" + beiratkozas_eve +
                 ", kreditek_szama=" + kreditek_szama +
                 '}';
     }
-
 
     public boolean csuszottE(int kepzes_feleveinek_szama){
         int elhasznalt_felevek =
@@ -124,5 +125,24 @@ public class Diak {
         int osszes = kepzes_feleveinek_szama*30;
         double arany = kreditek_szama/osszes;
         return (int) arany*100;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Diak diak = (Diak) o;
+        return kor == diak.kor &&
+                kreditek_szama == diak.kreditek_szama &&
+                Objects.equals(logger, diak.logger) &&
+                Objects.equals(neptun_kod, diak.neptun_kod) &&
+                Objects.equals(nev, diak.nev) &&
+                nem == diak.nem &&
+                Objects.equals(beiratkozas_eve, diak.beiratkozas_eve);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(logger, neptun_kod, nev, kor, nem, beiratkozas_eve, kreditek_szama);
     }
 }
